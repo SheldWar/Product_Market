@@ -49,8 +49,8 @@ class Tag(models.Model):
         return reverse('tag', kwargs={'slug': self.slug})
 
 class Post(models.Model):
-    slug = models.SlugField(max_length=255, unique=True, verbose_name='Url')
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True, verbose_name='Url')
     content = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Опубликовано')
     photo = models.ImageField(upload_to='photos/%Y/%m/%d')
@@ -68,4 +68,4 @@ class Post(models.Model):
         ordering = ['-created_at']
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'slug': self.slug})
+        return reverse('detail', kwargs={'slug': self.slug})
