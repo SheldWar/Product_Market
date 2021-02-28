@@ -1,6 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import ListView
+
+from shop.models import Product
 
 
-def index(request):
-    return render(request, 'shop/shop.html')
+class Shop(ListView):
+    model = Product
+
+    template_name = 'shop/shop.html'
+    context_object_name = 'products'
+    paginate_by = 12
