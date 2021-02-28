@@ -17,7 +17,7 @@ class Product(models.Model):
     photo = models.ImageField(upload_to='upload/product/photos/%Y/%m/%d/', verbose_name='Фото')
     content = models.TextField(verbose_name='Описание')
     weight = models.FloatField(verbose_name='Вес')
-    price = models.FloatField(verbose_name='Цена')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Категория')
     availability = models.BooleanField(verbose_name='Наличие')
     discount = models.IntegerField(default=0, verbose_name='Скидка в %')
@@ -33,6 +33,9 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
+
+        ordering = ('title',)
+        index_together = (('id', 'slug'),)
 
 
 class Category(models.Model):
