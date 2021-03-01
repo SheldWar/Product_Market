@@ -147,14 +147,14 @@
                 </div>
             </div>
             <div class="col-lg-9 col-md-7">
+                {% if discounted_products %}
                 <div class="product__discount">
                     <div class="section-title product__discount__title">
                         <h2>Sale Off</h2>
                     </div>
                     <div class="row">
                         <div class="product__discount__slider owl-carousel">
-                            {% for product in products %}
-                            {% if product.discount %}
+                            {% for product in discounted_products %}
                             <div class="col-lg-4">
                                 <div class="product__discount__item">
                                     <div class="product__discount__item__pic set-bg"
@@ -174,11 +174,11 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 <div class="filter__item">
                     <div class="row">
                         <div class="col-lg-4 col-md-5">
