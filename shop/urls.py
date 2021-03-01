@@ -5,7 +5,8 @@ from django.urls import path, include
 from .views import Shop
 
 urlpatterns = [
-    path('', Shop.as_view()),
+    path('', Shop.as_view(), name='home'),
+    path('<str:slug>', Shop.as_view(), name='shop_category'),
 ]
 
 if settings.DEBUG:
