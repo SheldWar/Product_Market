@@ -1,32 +1,27 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 
 from .models import Product, Category
 
 
-class Shop(ListView):
-    model = Product
+def product_list(request, category_slug=None):
+    """Получаем список товаров, если в url есть категория - получаем по категории"""
+    category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(availability=True)
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+    discounted_products = products.filter(discount__gt=0)
 
-    template_name = 'shop/shop.html'
-    context_object_name = 'products'
-    paginate_by = 12
+    return render(request, 'shop/shop.html', {'category': category, 'categories': categories, 'products': products,
+                                              'discounted_products': discounted_products})
 
-    def get_queryset(self):
-        """Если выбрали категорию, то делаем выборку по категории"""
-        if self.kwargs:
-            return Product.objects.filter(discount=0, category__slug=self.kwargs['slug'])
-        else:
-            return Product.objects.filter(discount=0)
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
+def product_detail(request, id, slug):
+    """Страница детальной информации о продукте"""
+    product = get_object_or_404(Product, id=id, slug=slug, availability=True)
 
-        # если выбрали категорию, ищем товары со скидкой в категории
-        if self.kwargs:
-            context['discounted_products'] = Product.objects.filter(discount__gt=0, category__slug=self.kwargs['slug'])
-        else:
-            context['discounted_products'] = Product.objects.filter(discount__gt=0)
+    return render(request, 'shop/shop_details.html', {'product': product})
 
-        return context
