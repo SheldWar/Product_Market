@@ -1381,6 +1381,10 @@ ol {
 	color: #1c1c1c;
 }
 
+.shoping__cart__item h5 a {
+	color: #1c1c1c;
+}
+
 .product__discount__item__text .product__item__price {
 	font-size: 18px;
 	color: #1c1c1c;
@@ -3465,4 +3469,13 @@ ol {
 	.blog__details__hero__text h2 {
 		font-size: 24px;
 	}
+}
+
+button[type=submit] {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }

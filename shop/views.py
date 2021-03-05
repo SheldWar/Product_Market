@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 
+from cart.forms import CartAddProductForm
 from .models import Product, Category
 
 
@@ -23,5 +24,7 @@ def product_detail(request, id, slug):
     """Страница детальной информации о продукте"""
     product = get_object_or_404(Product, id=id, slug=slug, availability=True)
 
-    return render(request, 'shop/shop_details.html', {'product': product})
+    cart_product_form = CartAddProductForm()
+
+    return render(request, 'shop/shop_details.html', {'product': product, 'cart_product_form': cart_product_form})
 

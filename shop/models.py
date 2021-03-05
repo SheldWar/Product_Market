@@ -17,7 +17,7 @@ class Category(models.Model):
     slug = models.SlugField(max_length=100, unique=True, verbose_name='Транслит')
 
     def get_absolute_url(self):
-        return reverse('product_list_by_category', args=[self.slug])
+        return reverse('shop:product_list_by_category', args=[self.slug])
 
     def __str__(self):
         return self.title
@@ -45,7 +45,7 @@ class Product(models.Model):
         return self.price * (100 - self.discount) / 100
 
     def get_absolute_url(self):
-        return reverse('product_detail', args=[self.id, self.slug])
+        return reverse('shop:product_detail', args=[self.id, self.slug])
 
     def __str__(self):
         return self.title
