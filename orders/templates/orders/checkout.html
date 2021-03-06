@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Checkout | {{ block.super }}{% endblock %}
+
+{% block header_info %}
+<span>Checkout</span>
+{% endblock %}
+
+{% block content %}
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="{% url 'cart:cart_detail' %}">Click
+                    here</a> to enter your code
+                </h6>
+            </div>
+        </div>
+        <div class="checkout__form">
+            <h4>Billing Details</h4>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Fist Name<span>*</span></p>
+                                    {{ form.first_name }}
+                                    {% if form.first_name.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ form.first_name.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Last Name<span>*</span></p>
+                                    {{ form.last_name }}
+                                    {% if form.last_name.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ form.last_name.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Country<span>*</span></p>
+                            {{ form.country }}
+                            {% if form.country.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.country.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="checkout__input">
+                            <p>City<span>*</span></p>
+                            {{ form.city }}
+                            {% if form.city.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.city.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="checkout__input">
+                            <p>Address<span>*</span></p>
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.address.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="checkout__input">
+                            <p>Postcode / ZIP<span>*</span></p>
+                            {{ form.postal_code }}
+                            {% if form.postal_code.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.postal_code.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Phone<span>*</span></p>
+                                    {{ form.phone }}
+                                    {% if form.phone.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ form.phone.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ form.email.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Order notes</p>
+                            {{ form.notes }}
+                            {% if form.notes.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.notes.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4>Your Order</h4>
+                            <div class="checkout__order__products">Products <span>Total</span></div>
+                            <ul>
+                                {% for item in cart %}
+                                <li>{{ item.product.title }} x{{ item.quantity }}<span>${{ item.total_price }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <div class="checkout__order__total"></div>
+                            <div class="checkout__order__total">Total <span>${{ cart.get_total_price }}</span></div>
+                            <button type="submit" class="site-btn" style="background-color: #7fad39">PLACE ORDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->
+{% endblock %}

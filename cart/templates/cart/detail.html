@@ -47,17 +47,20 @@
                                         {% csrf_token %}
                                     </div>
                                 </form>
+
                             </td>
                             <td class="shoping__cart__total">
                                 ${{ item.total_price }}
                             </td>
                             <td class="shoping__cart__item__close">
+
                                 <form action="{% url 'cart:cart_remove' product.id %}" , method="POST">
                                     <button type="submit" value="Remove">
                                         <span class="icon_close"></span>
                                     </button>
                                     {% csrf_token %}
                                 </form>
+
                             </td>
                         </tr>
                         {% endwith %}
@@ -90,7 +93,7 @@
                     <ul>
                         <li>Total <span>${{ cart.get_total_price }}</span></li>
                     </ul>
-                    <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    <a href="{% url 'orders:order_create' %}" class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>
             </div>
         </div>

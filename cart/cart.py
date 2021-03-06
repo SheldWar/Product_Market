@@ -83,4 +83,4 @@ class Cart:
         Удаляем корзину
         """
         del self.session[settings.CART_SESSION_ID]
-        self.save()
+
